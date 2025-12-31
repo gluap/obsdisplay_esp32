@@ -70,7 +70,7 @@ static BLEClient* pClient = nullptr;
 static BLERemoteCharacteristic* pSensorDistChar = nullptr;
 static BLERemoteCharacteristic* pOffsetChar = nullptr;
 
-volatile uint8_t brightness=255;
+volatile uint8_t brightness = 255;
 
 // ===== Helper: parse little-endian uint16/uint32 =====
 static uint16_t readLE16(const uint8_t* p) {
@@ -209,7 +209,7 @@ void setup() {
     delay(2000);
     Serial.println("initializing led matrix");
     matrix->begin();
-    matrix->setTextWrap(false); 
+    matrix->setTextWrap(false);
     matrix->setBrightness(brightness);
     // Test full bright of all LEDs. If brightness is too high
     // for your current limit (i.e. USB), decrease it.
@@ -220,7 +220,7 @@ void setup() {
     //matrix->fillScreen(LED_WHITE_HIGH);
     //matrix->show();
     //delay(1000);
-    
+
 
     // Configure GPIO pins as inputs with internal pull-ups enabled
     pinMode(15, INPUT_PULLDOWN);
@@ -259,6 +259,54 @@ void setColorByDistance(uint16_t dist) {
     }
 }
 
+
+void setBrighntesOnKeypress(int pin15State, int pin2State, int pin4State) {
+    static bool k15press, k2press, k4press;
+    Serial.println(k15press);
+
+    if (k15press) {
+        matrix->drawPixel(27, 0, matrix->Color(0, 255, 0));
+        matrix->drawPixel(26, 0, matrix->Color(0, 255, 0));
+    }
+    if (k2press) {
+        matrix->drawPixel(25, 0, matrix->Color(0, 0, 255));
+        matrix->drawPixel(24, 0, matrix->Color(0, 0, 255));
+    }
+    if (k4press) {
+        matrix->drawPixel(23, 0, matrix->Color(125, 125, 125));
+        matrix->drawPixel(22, 0, matrix->Color(125, 125, 125));
+    }
+    static long int last_keypress;
+    if (millis() - last_keypress < 250) {
+        return;
+    }
+
+    if (pin15State) {
+        brightness = max(brightness / 2, 1);
+        k15press = true;
+        last_keypress = millis();
+    }
+    else {
+        k15press = false;
+    }
+    if (pin2State) {
+        brightness = min(brightness * 2, 255);
+        k2press = true;
+        last_keypress = millis();
+    }
+    else {
+        k2press = false;
+    }
+    if (pin4State) {
+        k4press = true;
+        last_keypress = millis();
+    }
+    else {
+        k4press = false;
+    }
+}
+
+
 // ===== Arduino loop() =====
 void loop() {
     int pin15State = digitalRead(15);
@@ -293,11 +341,12 @@ void loop() {
         sprintf(display, "%3dcm", dist);
     }
     else {
-        matrix->drawBitmap(0, 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
-        }
+        matrix->drawBitmap((millis() / 100) % 64 - 32, 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
+    }
+    setBrighntesOnKeypress(pin15State, pin2State, pin4State);
 
     matrix->setBrightness(brightness);
-        
+
     if (connected) {
         if ((g_leftDistCm > 600)) {
             sprintf(display, "---cm", dist);
@@ -307,7 +356,6 @@ void loop() {
     }
 
     matrix->show();
-    delay(10);
 
     unsigned long now = millis();
     if (now - lastPrint > 2000) {
@@ -316,30 +364,4 @@ void loop() {
             g_offsetLeftCm, g_offsetRightCm,
             g_latestDistanceCm, dist, g_leftDistCm, g_rightDistCm);
     }
-}
-
-void setBrighntesOnKeypress(int pin15State, int pin2State, int pin4State)
-{
-        if (pin15State) {
-            matrix->drawPixel(27, 0, matrix->Color(0, 255, 0));
-            matrix->drawPixel(26, 0, matrix->Color(0, 255, 0));
-            delay(255);
-            brightness = max(brightness / 2, 1);
-            Serial.println(brightness);
-
-        }
-        if (pin2State) {
-            matrix->drawPixel(25, 0, matrix->Color(0, 0, 255));
-            matrix->drawPixel(24, 0, matrix->Color(0, 0, 255));
-            brightness = min(brightness * 2, 255);
-            Serial.println(brightness);
-
-            delay(255);
-        }
-        if (pin4State) {
-            matrix->drawPixel(23, 0, matrix->Color(125, 125, 125));
-            matrix->drawPixel(22, 0, matrix->Color(125, 125, 125));
-        }
-        Serial.println(brightness);
-        matrix->setBrightness(brightness);
 }
