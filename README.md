@@ -39,6 +39,16 @@ Open your shell in the root of this project (folder with ``platformio.ini``).
   ```
 
 ### Build and flash the ESP32
+
+> [!NOTE]
+>
+> - Activate the virtual environment in each new terminal session before running pio commands.
+> - To deactivate when you’re done:
+>   ```bash
+>   deactivate
+>   ```
+>   or just close the terminal.
+
 - Build the project:
   ```bash
   pio run
@@ -56,11 +66,3 @@ After connecting the ESP32 board to your computer:
   pio device monitor
   ```
 
-> [!NOTE]
->
-> - Activate the virtual environment in each new terminal session before running pio commands.
-> - To deactivate when you’re done:
->   ```bash
->   deactivate
->   ```
->   or just close the terminal.
