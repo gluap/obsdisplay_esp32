@@ -25,8 +25,9 @@
 
 #define LED_BLACK    0
 
-int counter = 0;
-int bilderanzahl = 0;
+#define NUM_MODES=2;
+volatile uint8_t mode;
+
 
 // 'obs', 32x8px
 const unsigned char epd_bitmap_obs[] PROGMEM = {
@@ -70,7 +71,7 @@ static BLEClient* pClient = nullptr;
 static BLERemoteCharacteristic* pSensorDistChar = nullptr;
 static BLERemoteCharacteristic* pOffsetChar = nullptr;
 
-volatile uint8_t brightness = 255;
+volatile uint8_t brightness = 64;
 
 // ===== Helper: parse little-endian uint16/uint32 =====
 static uint16_t readLE16(const uint8_t* p) {
@@ -206,8 +207,6 @@ bool connectToServer() {
 // ===== Arduino setup() =====
 void setup() {
     Serial.begin(115200);
-    delay(2000);
-    Serial.println("initializing led matrix");
     matrix->begin();
     matrix->setTextWrap(false);
     matrix->setBrightness(brightness);
@@ -260,7 +259,7 @@ void setColorByDistance(uint16_t dist) {
 }
 
 
-void setBrighntesOnKeypress(int pin15State, int pin2State, int pin4State) {
+void reactToKeys(int pin15State, int pin2State, int pin4State) {
     static bool k15press, k2press, k4press;
     Serial.println(k15press);
 
@@ -341,9 +340,9 @@ void loop() {
         sprintf(display, "%3dcm", dist);
     }
     else {
-        matrix->drawBitmap((millis() / 100) % 64 - 32, 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
+        matrix->drawBitmap(32-(millis() / 100) % 64, 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
     }
-    setBrighntesOnKeypress(pin15State, pin2State, pin4State);
+    reactToKeys(pin15State, pin2State, pin4State);
 
     matrix->setBrightness(brightness);
 
