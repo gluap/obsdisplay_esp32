@@ -25,7 +25,7 @@
 
 #define LED_BLACK    0
 
-#define NUM_MODES=2;
+#define NUM_MODES = 2;
 volatile uint8_t mode;
 
 

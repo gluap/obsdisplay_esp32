@@ -1,0 +1,2 @@
+This case is licensed as [CC-By-NC](http://creativecommons.org/licenses/by-nc/4.0/). 
+The work is based on [this work by NoaNoa on Printables](https://www.printables.com/model/434061-bifrost-led-matrix-case).
