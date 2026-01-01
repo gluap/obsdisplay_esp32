@@ -18,31 +18,34 @@ There are two case options:
 Open your shell in the root of this project (folder with ``platformio.ini``).
 
 ### Create virtual environment with platformio
-- Create and activate a virtual environment:
+- Create and activate a virtual environment and install platformio inside it (to avoid messing with your system environment):
 
-   - macOS/Linux:
+   - macOS/Linux (bash):
         ```bash
         python3 -m venv .venv
-        source .venv/bin/activate
+        .venv/bin/python3 -m pip install platformio
         ```
 
     - Windows (PowerShell):
         ```powershell
         py -m venv .venv
-        .\.venv\Scripts\Activate.ps1
+        .\.venv\Scripts\python -m pip install platformio
         ```
-
-- Install PlatformIO inside the virtual environment:
-  ```bash
-  pip install --upgrade pip
-  pip install platformio
-  ```
 
 ### Build and flash the ESP32
 
 > [!NOTE]
 >
 > - Activate the virtual environment in each new terminal session before running pio commands.
+>    - macOS/Linux (bash):
+>        ```bash
+>        source .venv/bin/activate
+>        ```
+>   - Windows (PowerShell):
+>        ```powershell
+>        .\.venv\Scripts\Activate.ps1
+>        ```
+>
 > - To deactivate when you’re done:
 >   ```bash
 >   deactivate
