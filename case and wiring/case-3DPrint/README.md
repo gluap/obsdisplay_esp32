@@ -20,3 +20,5 @@ or if you have a large enough print bed:
  - [case-3DPrint/bifrost-led-matrix-case-model_files/diffuser.stl](case-3DPrint/bifrost-led-matrix-case-model_files/diffuser.stl) the diffuser as a single piece.
 
 Glue the case along the middle with superglue.
+
+For wiring follow the [wiring section of the manual for the lasercut case](../case-Lasercut/README.md#wiring).

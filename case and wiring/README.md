@@ -1,21 +1,15 @@
 # Hardware Manual
 Chose between the two variants:
-<figure style="display:flex;flex-flow: row;">
-<figure>
-<img src="../media/Lasercut_case.jpg" style="height:300px">
-<figcaption style="text-align:center;">
-Lasercut version
-</figcaption>
-</figure>
 
-<figure>
-<img src="../media/3DPrint_case.jpg" style="height:300px">
-<figcaption style="text-align:center;">
-Fully 3D-printed version
-</figcaption>
-</figure>
+Lasercut version:<br/>
+<img src="../media/Lasercut_case.jpg" style="width:300px">
 
-</figure>
+
+
+Fully 3D-printed version:<br/>
+<img src="../media/3DPrint_case.jpg" style="width:300px">
+
+
 
 ## Required parts:
 
@@ -36,8 +30,8 @@ Fully 3D-printed version
     - 8x m3x8mm bolts. 2x for ESP32, 4x for back cover.  [standard OpenBikeSensor bolt, you might already have this]
     - [the lasercut and 3D-Printed parts for this case](case-Lasercut)
 
-> [!NOTICE]
-> If you have bought crimping pliers to build OpenBikeSensors you might have all the crimps required at hand in the box with your pliers.
+> [!NOTE]
+> If you have crimping pliers, you might have all the crimps and connectors required at hand in the box with your pliers.
 
 ### Crimping Supplies
 - about 12 JST-XH Crimps (BXH-001T-P0.6)
