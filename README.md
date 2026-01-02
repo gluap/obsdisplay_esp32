@@ -7,7 +7,7 @@ The code is supposed to be built and flashed using [platformio](https://platform
 There are two case options:
 
 ## Lasercut Wood 
-![]()
+![](media/Lasercut_case.jpg)
 
 ## Fully 3D-Printed
 ![](media/3DPrint_case.jpg)
