@@ -39,7 +39,7 @@ const unsigned char epd_bitmap_obs[] PROGMEM = {
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
 // example for more information on possible values.
 Adafruit_NeoMatrix* matrix = new Adafruit_NeoMatrix(mw, mh, PIN,
-    NEO_MATRIX_BOTTOM + NEO_MATRIX_RIGHT +
+    HORIZONTAL_START + VERTICAL_START +
     NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG,
     NEO_GRB + NEO_KHZ800);
 

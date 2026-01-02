@@ -59,10 +59,15 @@ Open your shell in the root of this project (folder with ``platformio.ini``).
  
 After connecting the ESP32 board to your computer:
 
-- Flash to the connected board:
-  ```bash
-  pio run --target upload
-  ```
+- Flash to the connected board 
+  - If the led string starts at the top left:
+    ```bash
+    pio run --target upload -e topleft
+    ```
+  - If the LED string starts at the bottom right:
+    ```bash
+    pio run --target upload -e bottomright
+    ```
 
 - If needed for debugging or defvelopment: Monitor serial output:
   ```bash
