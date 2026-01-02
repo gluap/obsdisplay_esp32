@@ -1,19 +1,19 @@
 # OpenBikeSensor display
 
-This repo contains firmware and code for a presentation display for the OpenBikeSensor.
+This repo contains code and parts (3D-printable and optionally lasercuttable) for a presentation display for the OpenBikeSensor.
 
 The code is supposed to be built and flashed using [platformio](https://platformio.org/).
 
 There are two case options:
 
-## Lasercut Wood 
-![](media/Lasercut_case.jpg)
+## Variants
 
-## Fully 3D-Printed
-![](media/3DPrint_case.jpg)
+<img src="media/Lasercut_case.jpg" style="height:300px"> <img src="media/3DPrint_case.jpg" style="height:300px">
+
+Building the case and hardware is documented [here](./case%20and%20wiring/).
 
 
-## Build and flash
+## Building and flashing the firmware
 
 Open your shell in the root of this project (folder with ``platformio.ini``).
 
