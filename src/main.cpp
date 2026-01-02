@@ -35,6 +35,11 @@ const unsigned char epd_bitmap_obs[] PROGMEM = {
     0x7a, 0x13, 0xc3, 0x3c, 0x42, 0x12, 0x20, 0x84, 0x43, 0x32, 0x20, 0x84, 0x01, 0xe3, 0xc7, 0x00
 };
 
+#ifndef HORIZONTAL_START
+#define HORIZONTAL_START NEO_MATRIX_RIGHT
+#define VERTICAL_START NEO_MATRIX_BOTTOM
+#endif
+
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
 // example for more information on possible values.
