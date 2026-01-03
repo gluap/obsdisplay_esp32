@@ -72,6 +72,7 @@ volatile uint16_t g_rightDistCm = 0xFFFF;
 static BLEAddress* pServerAddress = nullptr;
 static bool doConnect = false;
 static bool connected = false;
+static bool scrolling = false;
 static BLEClient* pClient = nullptr;
 static BLERemoteCharacteristic* pSensorDistChar = nullptr;
 static BLERemoteCharacteristic* pOffsetChar = nullptr;
@@ -304,6 +305,7 @@ void reactToKeys(int pin15State, int pin2State, int pin4State) {
     if (pin4State) {
         k4press = true;
         last_keypress = millis();
+        scrolling = !scrolling;
     }
     else {
         k4press = false;
@@ -345,7 +347,7 @@ void loop() {
         sprintf(display, "%3dcm", dist);
     }
     else {
-        matrix->drawBitmap(32-(millis() / 100) % 64, 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
+        matrix->drawBitmap(scrolling*(32-(millis() / 100) % 64), 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
         for (uint8_t i = 0; i < 255; i++)
         {
             if(matrix->getPixelColor(i)>0) {
