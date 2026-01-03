@@ -346,6 +346,13 @@ void loop() {
     }
     else {
         matrix->drawBitmap(32-(millis() / 100) % 64, 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
+        for (uint8_t i = 0; i < 255; i++)
+        {
+            if(matrix->getPixelColor(i)>0) {
+                matrix->setPixelColor(i,matrix->ColorHSV((uint16_t)256*(i-(millis()/20)),255,brightness));
+                Serial.println(i);
+            }
+        }
     }
     reactToKeys(pin15State, pin2State, pin4State);
 

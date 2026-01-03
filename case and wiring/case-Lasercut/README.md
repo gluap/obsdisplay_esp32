@@ -66,18 +66,21 @@ Use wood glue with a drying time that allows for some rework - If you use fast-d
 1. Secure the ESP32 to the mount using two m3x8mm screws. Use two holes diagonally opposite of each other. The remaining two holes can be left empty. 
 2. Remove the pins from the JST-XH PCB connectors.
 3. Stick the JST-XH-PCB connectors on the PCB pins as shown.
-<img src="../../media/connectors_on_esp.jpg" style="width:600px">
-4. Crimp female crimps onto the three-wire cable connected to "DIN" of the LED matrix. Stick them in a 3-pin connector [female] in the order matching the three pin connector on the ESP. (either to the one coming out of the LED matrix or to the small pigtail cable that came with the Display).
+    <img src="../../media/connectors_on_esp.jpg" style="width:600px">
+
+4. Wire the buttons like shown in the diagram (lines that do not touch are not connected). Solder the contacts to the buttons and use crimp contacts at the other end of the wire.<br/>
+   <img src="../../media/button_wiring_diagram.jpg" style="width:300px">
+
+5. After soldering, connect your button wires to the JST connector like shown in the photo. **Remember to leave a gap, connect the common connection to 3.3V and the buttons to GPIO15, GPIO2 and GPIO4.**
+   <img src="../../media/button_wiring_photo.jpg" style="width:800px">
+
+6. Crimp female crimps onto the three-wire cable connected to "DIN" of the LED matrix. Stick them in a 3-pin connector [female] in the order matching the three pin connector on the ESP. (either to the one coming out of the LED matrix or to the small pigtail cable that came with the Display).
 <img src="../../media/pigtail_crimp.jpg" style="width:800px">
 
 > [!WARNING]
 > Wrong cable order may fry your LED matrix. Make triple sure that the matching pins are connected. **The pin order differs between the Display matrix and the ESP.** On the LED Matrix the DIN pin is in the middle, it needs to connect to GPIO14 on the ESP, which is at the edge.
 
-5. Wire the buttons like shown in the diagram (lines that do not touch are not connected). Solder the contacts to the buttons and use crimp contacts at the other end of the wire.<br/>
-   <img src="../../media/button_wiring_diagram.jpg" style="width:300px">
 
-6. After soldering, connect your button wires to the JST connector like shown in the photo. **Remember to leave a gap, connect the common connection to 3.3V and the buttons to GPIO15, GPIO2 and GPIO4.**
-   <img src="../../media/button_wiring_photo.jpg" style="width:800px">
 
 
 7. Crimp male contacts onto the two wires of the USB connector. Crimp female contacts onto the power wire in the center of the LED matrix. Insert crimps into connectors and connect so that red and black matches. Connect the connectors.
