@@ -1,16 +1,14 @@
-# OpenBikeSensor display
+# OpenBikeSensor presentation display
 
 This repo contains code and parts (3D-printable and optionally lasercuttable) for a presentation display for the OpenBikeSensor.
 
 The code is supposed to be built and flashed using [platformio](https://platformio.org/).
 
-There are two case options:
-
 ## Variants
+The display case can be built entirely 3D-Printed or with a case mostly made of lasercut plywood. Building the case and hardware is documented [here](./case%20and%20wiring/).
 
-<img src="media/Lasercut_case.jpg" style="height:300px"> <img src="media/3DPrint_case.jpg" style="height:300px">
 
-Building the case and hardware is documented [here](./case%20and%20wiring/).
+<img src="media/cases_screensaver.jpg" style="width:100%">
 
 
 ## Building and flashing the firmware

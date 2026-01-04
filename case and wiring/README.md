@@ -1,22 +1,19 @@
-# Hardware Manual
+# Hardware manual
 Chose between the two variants:
 
-Lasercut version:<br/>
+Lasercut version [building instructions](case-Lasercut):<br/>
 <img src="../media/Lasercut_case.jpg" style="width:300px">
 
-
-
-Fully 3D-printed version:<br/>
+Fully 3D-printed version [building instructions](case-3DPrint):<br/>
 <img src="../media/3DPrint_case.jpg" style="width:300px">
-
 
 
 ## Required parts:
 
-- ESP32 module, 30-Pin version.
+- ESP32 module, 30-Pin version. (the same ESP module used in the OpenBikeSensor)
 - 3 cherry type keyswitches and matching keycaps
 - [USB-C power module](https://www.amazon.de/dp/B0F2MNT26V)
-- some wire
+- some wire (about 40cm)
 - crimping supplies ([see below](#crimping-supplies))
 - for the 3D-printed case version:
     - 2x m3x8mm bolts
@@ -46,8 +43,3 @@ Fully 3D-printed version:<br/>
 ## Required Tools
 - JST-XH Crimping pliers.
 - soldering iron and soldering supplies.
-
-## Case
-There are two case options:
-- [fully 3D-printable version.](case-3DPrint)
-- [Partly 3D-printed and partly laser-cut version.](case-Lasercut)
