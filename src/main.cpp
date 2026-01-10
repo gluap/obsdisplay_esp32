@@ -6,24 +6,16 @@
 #include <BLEScan.h>
 #include <BLEClient.h>
 
-
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
+#include <font.h>	
 
-
-// Which pin on the Arduino is connected to the NeoPixels?
-#define PIN 13
+#include "config.h"
 
 // Max is 255, 32 is a conservative value to not overload
 // a USB power supply (500mA) for 12x12 pixels.
 //#define BRIGHTNESS 255
-
-// Define matrix width and height.
-#define mw 32
-#define mh 8
-
-#define LED_BLACK    0
 
 #define NUM_MODES = 2;
 volatile uint8_t mode;
@@ -35,11 +27,6 @@ const unsigned char epd_bitmap_obs[] PROGMEM = {
     0x7a, 0x13, 0xc3, 0x3c, 0x42, 0x12, 0x20, 0x84, 0x43, 0x32, 0x20, 0x84, 0x01, 0xe3, 0xc7, 0x00
 };
 
-#ifndef HORIZONTAL_START
-#define HORIZONTAL_START NEO_MATRIX_RIGHT
-#define VERTICAL_START NEO_MATRIX_BOTTOM
-#endif
-
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
 // example for more information on possible values.
@@ -47,14 +34,6 @@ Adafruit_NeoMatrix* matrix = new Adafruit_NeoMatrix(mw, mh, PIN,
     HORIZONTAL_START + VERTICAL_START +
     NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG,
     NEO_GRB + NEO_KHZ800);
-
-// ==== OBS Service & Characteristic UUIDs ====
-static const BLEUUID OBS_SERVICE_UUID("1FE7FAF9-CE63-4236-0004-000000000000");
-static const BLEUUID OBS_TIME_UUID("1FE7FAF9-CE63-4236-0004-000000000001");
-static const BLEUUID OBS_SENSOR_DIST_UUID("1FE7FAF9-CE63-4236-0004-000000000002");
-static const BLEUUID OBS_CLOSE_PASS_UUID("1FE7FAF9-CE63-4236-0004-000000000003");
-static const BLEUUID OBS_OFFSET_UUID("1FE7FAF9-CE63-4236-0004-000000000004");
-static const BLEUUID OBS_TRACK_ID_UUID("1FE7FAF9-CE63-4236-0004-000000000005");
 
 // ==== Globals for OBS data ====
 // Handlebar offsets (cm), reported as two uint16: left, then right
@@ -219,8 +198,10 @@ void setup() {
     // Test full bright of all LEDs. If brightness is too high
     // for your current limit (i.e. USB), decrease it.
     matrix->clear();
+    matrix->setFont(&font7pxvar);
 
-    matrix->drawBitmap(0, 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
+    matrix->print(version);
+    rainbowify(matrix);
     matrix->show();
     //matrix->fillScreen(LED_WHITE_HIGH);
     //matrix->show();
@@ -337,7 +318,6 @@ void loop() {
 
 
     matrix->fillScreen(0);
-    //matrix->setFont(&FreeMonoBold9pt7b);
     matrix->setCursor(1, 0);
     int dist = max(g_leftDistCm - g_offsetLeftCm, 0);
     char display[16] = { 0 };
@@ -347,12 +327,7 @@ void loop() {
     }
     else {
         matrix->drawBitmap(scrolling*(32-(millis() / 100) % 64), 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
-        for (uint16_t i = 0; i < 256; i++)
-        {
-            if(matrix->getPixelColor(i)>0) {
-                matrix->setPixelColor(i,matrix->ColorHSV((uint16_t)256*(i-(millis()/20)),255,brightness));
-            }
-        }
+        rainbowify(matrix);
     }
     reactToKeys(pin15State, pin2State, pin4State);
 
@@ -374,5 +349,16 @@ void loop() {
         Serial.printf("Offsets L/R: %u / %u cm, latest distance: %d cm %d (L=%u, R=%u)\n",
             g_offsetLeftCm, g_offsetRightCm,
             g_latestDistanceCm, dist, g_leftDistCm, g_rightDistCm);
+    }
+}
+
+void rainbowify(Adafruit_NeoMatrix* matrix)
+{
+    for (uint16_t i = 0; i < 256; i++)
+    {
+        if (matrix->getPixelColor(i) > 0)
+        {
+            matrix->setPixelColor(i, matrix->ColorHSV((uint16_t)256 * (i - (millis() / 20)), 255, brightness));
+        }
     }
 }
