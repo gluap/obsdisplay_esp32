@@ -267,7 +267,6 @@ void setColorByDistance(uint16_t dist) {
 
 void reactToKeys(int pin15State, int pin2State, int pin4State) {
     static bool k15press, k2press, k4press;
-    Serial.println(k15press);
 
     if (k15press) {
         matrix->drawPixel(27, 0, matrix->Color(0, 255, 0));
@@ -348,11 +347,10 @@ void loop() {
     }
     else {
         matrix->drawBitmap(scrolling*(32-(millis() / 100) % 64), 0, epd_bitmap_obs, 32, 8, matrix->Color(0, 255, 0));
-        for (uint8_t i = 0; i < 255; i++)
+        for (uint16_t i = 0; i < 256; i++)
         {
             if(matrix->getPixelColor(i)>0) {
                 matrix->setPixelColor(i,matrix->ColorHSV((uint16_t)256*(i-(millis()/20)),255,brightness));
-                Serial.println(i);
             }
         }
     }
